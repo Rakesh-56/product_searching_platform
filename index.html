@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LUXE — Advanced Product Discovery</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-title">FILTERS</span>
+    <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+  </div>
+
+  <div class="filter-group">
+    <h4 class="filter-label">CATEGORY</h4>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="electronics">Electronics</button>
+      <button class="filter-btn" data-cat="fashion">Fashion</button>
+      <button class="filter-btn" data-cat="home">Home</button>
+      <button class="filter-btn" data-cat="beauty">Beauty</button>
+      <button class="filter-btn" data-cat="sports">Sports</button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <h4 class="filter-label">PRICE RANGE</h4>
+    <div class="price-range-wrap">
+      <input type="range" id="priceRange" min="0" max="500" value="500" class="price-slider"/>
+      <div class="price-display">Up to $<span id="priceVal">500</span></div>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <h4 class="filter-label">RATING</h4>
+    <div class="rating-filter">
+      <button class="rating-btn active" data-rating="0"><i class="fas fa-star"></i> All</button>
+      <button class="rating-btn" data-rating="4"><i class="fas fa-star"></i> 4+</button>
+      <button class="rating-btn" data-rating="4.5"><i class="fas fa-star"></i> 4.5+</button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <h4 class="filter-label">ECO FRIENDLY</h4>
+    <label class="eco-toggle">
+      <input type="checkbox" id="ecoToggle"/>
+      <span class="toggle-slider"></span>
+      <span class="toggle-text">Show Only Eco</span>
+    </label>
+  </div>
+
+  <div class="filter-group">
+    <h4 class="filter-label">SORT BY</h4>
+    <select class="sort-select" id="sortSelect">
+      <option value="default">Default</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="rating">Top Rated</option>
+      <option value="name">Name A–Z</option>
+    </select>
+  </div>
+
+  <button class="clear-filters-btn" id="clearFilters">
+    <i class="fas fa-redo"></i> Reset Filters
+  </button>
+</aside>
+
+<!-- OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <button class="hamburger" id="hamburger"><i class="fas fa-sliders-h"></i></button>
+    <a href="#home" class="logo" data-scroll="home">LUXE<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#home" data-scroll="home">Home</a></li>
+      <li class="has-dropdown">
+        <a href="#products" data-scroll="products">Products <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <a href="#" data-cat="electronics"><i class="fas fa-microchip"></i> Electronics</a>
+          <a href="#" data-cat="fashion"><i class="fas fa-tshirt"></i> Fashion</a>
+          <a href="#" data-cat="home"><i class="fas fa-home"></i> Home</a>
+          <a href="#" data-cat="beauty"><i class="fas fa-spa"></i> Beauty</a>
+          <a href="#" data-cat="sports"><i class="fas fa-running"></i> Sports</a>
+        </div>
+      </li>
+      <li><a href="#categories" data-scroll="categories">Categories</a></li>
+      <li><a href="#trending" data-scroll="trending">Trending</a></li>
+      <li><a href="#about" data-scroll="about">About</a></li>
+      <li><a href="#contact" data-scroll="contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="search-wrap">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search products..."/>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <button class="wishlist-btn" id="wishlistBtn">
+        <i class="fas fa-heart"></i>
+        <span class="badge" id="wishlistBadge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag animate-in">NEW ARRIVALS 2025</div>
+    <h1 class="hero-title animate-in delay-1">Discover<br/><em>Premium</em><br/>Products</h1>
+    <p class="hero-sub animate-in delay-2">Curated collections. Uncompromising quality. Delivered to your world.</p>
+    <div class="hero-actions animate-in delay-3">
+      <button class="btn-primary" data-scroll="products">Explore Now <i class="fas fa-arrow-right"></i></button>
+      <button class="btn-ghost" data-scroll="trending">Trending <i class="fas fa-fire"></i></button>
+    </div>
+    <div class="hero-stats animate-in delay-4">
+      <div class="stat"><span class="stat-num" data-target="10000">0</span><span>Customers</span></div>
+      <div class="stat"><span class="stat-num" data-target="500">0</span><span>Products</span></div>
+      <div class="stat"><span class="stat-num" data-target="98">0</span><span>% Satisfaction</span></div>
+    </div>
+  </div>
+  <div class="hero-visual animate-in delay-2">
+    <div class="hero-card-float card-1">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80" alt="Watch"/>
+      <span>Luxury Watch</span>
+    </div>
+    <div class="hero-card-float card-2">
+      <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=200&q=80" alt="Sneakers"/>
+      <span>Premium Sneakers</span>
+    </div>
+    <div class="hero-card-float card-3">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" alt="Headphones"/>
+      <span>Studio Headphones</span>
+    </div>
+  </div>
+</section>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  <div class="announce-scroll">
+    <span>🚀 FREE SHIPPING ON ORDERS OVER $99</span>
+    <span>⚡ NEW: Eco-Friendly Collection</span>
+    <span>🎁 MEMBER EXCLUSIVE: 20% OFF</span>
+    <span>✨ 500+ PREMIUM PRODUCTS</span>
+    <span>🔥 LIMITED TIME DEALS</span>
+    <span>🚀 FREE SHIPPING ON ORDERS OVER $99</span>
+    <span>⚡ NEW: Eco-Friendly Collection</span>
+    <span>🎁 MEMBER EXCLUSIVE: 20% OFF</span>
+  </div>
+</div>
+
+<!-- CATEGORIES GRID -->
+<section class="categories-section" id="categories">
+  <div class="section-header scroll-reveal">
+    <div class="section-eyebrow">BROWSE</div>
+    <h2 class="section-title">Shop By Category</h2>
+  </div>
+  <div class="categories-grid" id="categoriesGrid">
+    <div class="cat-card scroll-reveal" data-cat="electronics">
+      <div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=400&q=80')"></div>
+      <div class="cat-overlay"><i class="fas fa-microchip"></i><h3>Electronics</h3><span>120 Products</span></div>
+    </div>
+    <div class="cat-card scroll-reveal" data-cat="fashion">
+      <div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&q=80')"></div>
+      <div class="cat-overlay"><i class="fas fa-tshirt"></i><h3>Fashion</h3><span>240 Products</span></div>
+    </div>
+    <div class="cat-card scroll-reveal" data-cat="home">
+      <div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80')"></div>
+      <div class="cat-overlay"><i class="fas fa-home"></i><h3>Home & Living</h3><span>88 Products</span></div>
+    </div>
+    <div class="cat-card scroll-reveal" data-cat="beauty">
+      <div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80')"></div>
+      <div class="cat-overlay"><i class="fas fa-spa"></i><h3>Beauty</h3><span>60 Products</span></div>
+    </div>
+    <div class="cat-card scroll-reveal" data-cat="sports">
+      <div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&q=80')"></div>
+      <div class="cat-overlay"><i class="fas fa-running"></i><h3>Sports</h3><span>74 Products</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section class="products-section" id="products">
+  <div class="products-inner">
+    <div class="section-header scroll-reveal">
+      <div class="section-eyebrow">COLLECTION</div>
+      <h2 class="section-title">All Products</h2>
+      <div class="products-toolbar">
+        <span id="productCount" class="product-count">Showing 0 products</span>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridView"><i class="fas fa-th"></i></button>
+          <button class="view-btn" id="listView"><i class="fas fa-list"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+    <div class="no-results" id="noResults" style="display:none;">
+      <i class="fas fa-search-minus"></i>
+      <h3>No products found</h3>
+      <p>Try adjusting your filters or search terms.</p>
+      <button class="btn-primary" id="clearFilters2">Clear Filters</button>
+    </div>
+  </div>
+</section>
+
+<!-- TRENDING -->
+<section class="trending-section" id="trending">
+  <div class="section-header scroll-reveal">
+    <div class="section-eyebrow">HOT RIGHT NOW</div>
+    <h2 class="section-title">Trending Products <i class="fas fa-fire" style="color:#ff4b2b"></i></h2>
+  </div>
+  <div class="trending-wrapper">
+    <button class="slide-arrow left-arrow" id="trendLeft"><i class="fas fa-chevron-left"></i></button>
+    <div class="trending-track" id="trendingTrack"></div>
+    <button class="slide-arrow right-arrow" id="trendRight"><i class="fas fa-chevron-right"></i></button>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section class="reco-section" id="recommendations">
+  <div class="section-header scroll-reveal">
+    <div class="section-eyebrow">PERSONALIZED</div>
+    <h2 class="section-title">You May Also Like</h2>
+  </div>
+  <div class="reco-grid" id="recoGrid"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="about">
+  <div class="section-header scroll-reveal">
+    <div class="section-eyebrow">LOVE FROM CUSTOMERS</div>
+    <h2 class="section-title">What People Say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card scroll-reveal">
+      <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p>"Absolutely amazing quality. The products exceeded my expectations by miles. Will definitely shop here again!"</p>
+      <div class="testi-author">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah"/>
+        <div><strong>Sarah Mitchell</strong><span>Verified Buyer</span></div>
+      </div>
+    </div>
+    <div class="testi-card scroll-reveal">
+      <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p>"Fast shipping, gorgeous packaging, and the product itself is top-tier. LUXE has become my go-to store."</p>
+      <div class="testi-author">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James"/>
+        <div><strong>James Carter</strong><span>Verified Buyer</span></div>
+      </div>
+    </div>
+    <div class="testi-card scroll-reveal">
+      <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+      <p>"The eco-friendly collection is phenomenal. Love that they care about the planet as much as aesthetics."</p>
+      <div class="testi-author">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya"/>
+        <div><strong>Priya Sharma</strong><span>Verified Buyer</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left scroll-reveal">
+      <div class="section-eyebrow">GET IN TOUCH</div>
+      <h2 class="section-title">We'd Love to <em>Hear</em><br/>From You</h2>
+      <p>Have questions? Reach out and our team will get back to you within 24 hours.</p>
+      <div class="contact-info">
+        <div><i class="fas fa-envelope"></i> hello@luxestore.com</div>
+        <div><i class="fas fa-phone"></i> +1 (800) 555-LUXE</div>
+        <div><i class="fas fa-map-marker-alt"></i> 42 Design Avenue, NY 10001</div>
+      </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div class="contact-right scroll-reveal">
+      <div class="contact-form" id="contactForm">
+        <div class="form-group">
+          <input type="text" id="fname" placeholder="Your Name" required/>
+          <label>Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="femail" placeholder="your@email.com" required/>
+          <label>Email</label>
+        </div>
+        <div class="form-group">
+          <select id="fsubject">
+            <option value="">Select Subject</option>
+            <option>Order Inquiry</option>
+            <option>Product Question</option>
+            <option>Return/Refund</option>
+            <option>Partnership</option>
+          </select>
+          <label>Subject</label>
+        </div>
+        <div class="form-group">
+          <textarea id="fmessage" placeholder="Your message..." rows="4"></textarea>
+          <label>Message</label>
+        </div>
+        <button class="btn-primary full-width" id="submitForm">Send Message <i class="fas fa-paper-plane"></i></button>
+        <div class="form-success" id="formSuccess">
+          <i class="fas fa-check-circle"></i> Message sent! We'll reply within 24h.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo footer-logo">LUXE<span>.</span></a>
+      <p>Curating the world's finest products for discerning individuals since 2020.</p>
+      <div class="footer-newsletter">
+        <input type="email" id="newsletter" placeholder="Enter your email"/>
+        <button id="subscribeBtn">Subscribe</button>
+      </div>
+    </div>
+    <div class="footer-links-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#" data-cat="electronics">Electronics</a></li>
+        <li><a href="#" data-cat="fashion">Fashion</a></li>
+        <li><a href="#" data-cat="home">Home</a></li>
+        <li><a href="#" data-cat="beauty">Beauty</a></li>
+        <li><a href="#" data-cat="sports">Sports</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Size Guide</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 LUXE. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service · Cookies</span>
+  </div>
+</footer>
+
+<!-- WISHLIST PANEL -->
+<div class="wishlist-panel" id="wishlistPanel">
+  <div class="wishlist-header">
+    <h3>My Wishlist <i class="fas fa-heart"></i></h3>
+    <button id="closeWishlist"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="wishlist-items" id="wishlistItems"></div>
+  <div class="wishlist-empty" id="wishlistEmpty">
+    <i class="fas fa-heart-broken"></i>
+    <p>Your wishlist is empty.<br/>Start adding products!</p>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div class="modal-inner" id="modalInner"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></button>
+
+<script src="script.js"></script>
+</body>
+</html>
